@@ -132,6 +132,10 @@ async function fetchYoutubeVideos(pageToken?: string): Promise<YoutubeSearchList
 
   try {
     const response = await fetch(request);
+    if (!response.ok) {
+      console.error('Error fetching YouTube videos:', JSON.stringify(await response.json(), null, 2));
+      throw new Error('Failed to fetch YouTube videos');
+    }
     const data = await response.json();
     const parsedData = YoutubeSearchListResponseSchema.parse(data);
     return parsedData;

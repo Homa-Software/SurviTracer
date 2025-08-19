@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, type TextChannel } from 'discord.js';
+import { Client, GatewayIntentBits, MessageFlags, type TextChannel } from 'discord.js';
 import ms from 'ms';
 import PrettyError from 'pretty-error';
 
@@ -16,7 +16,10 @@ async function sendMessageToChannel(client: Client, message: string): Promise<bo
     const channel = (await client.channels.fetch(env.DISCORD_CHANNEL_ID)) as TextChannel;
 
     if (channel) {
-      await channel.send(message);
+      await channel.send({
+        flags: MessageFlags.SuppressNotifications,
+        content: message,
+      });
       console.log('Sent message to Discord channel:', message);
     }
     return true;
@@ -29,15 +32,13 @@ async function sendMessageToChannel(client: Client, message: string): Promise<bo
 client.once('ready', async () => {
   console.log(`Bot is ready! Logged in as ${client.user?.tag}`);
 
-  // console.log(await checkForNewerVideos());
-
   const doWork = async () => {
     console.log('Checking for new videos...');
     try {
       const newVideos = (await checkForNewerVideos()).toReversed();
       const results = await Promise.all(
         newVideos.map(async (video) => {
-          const message = `🎥 **<@${env.DISCORD_USER_ID}> Wrcuił nowy film!**\n**${video.title}**\nhttps://www.youtube.com/watch?v=${video.videoId}`;
+          const message = `🎥 **<@${env.DISCORD_USER_ID}> Wrzucił nowy film!**\n**${video.title}**\nhttps://www.youtube.com/watch?v=${video.videoId}`;
           return await sendMessageToChannel(client, message);
         }),
       );
