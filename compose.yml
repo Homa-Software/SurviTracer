@@ -1,6 +1,6 @@
 services:
   bot:
-    image: survitracer:v0.0.2
+    image: survitracer:v0.0.3
     build:
       context: .
       dockerfile: Dockerfile
