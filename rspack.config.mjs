@@ -11,7 +11,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 
-const LAZY_IMPORTS = [];
+const LAZY_IMPORTS = ['zlib-sync', 'bufferutil', 'utf-8-validate'];
 
 /**
  * @type {import('@rspack/core').Configuration}

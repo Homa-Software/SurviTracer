@@ -1,0 +1,20 @@
+services:
+  bot:
+    image: survitracer:v0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    pull_policy: build
+    environment:
+      - NODE_ENV=production
+      - DATA_DIR=/var/data
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN?:Missing DISCORD_BOT_TOKEN}
+      - DISCORD_CHANNEL_ID=${DISCORD_CHANNEL_ID?:Missing DISCORD_CHANNEL_ID}
+      - DISCORD_USER_ID=${DISCORD_USER_ID?:Missing DISCORD_USER_ID}
+      - YOUTUBE_API_KEY=${YOUTUBE_API_KEY?:Missing YOUTUBE_API_KEY}
+      - YOUTUBE_CHANNEL_ID=${YOUTUBE_CHANNEL_ID?:Missing YOUTUBE_CHANNEL_ID}
+    volumes:
+      - bot-data:/var/data
+
+volumes:
+  bot-data:

@@ -5,10 +5,11 @@
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.husky/
 
 .turbo
 .idea
-.claude
+
 
 # Logs
 logs
