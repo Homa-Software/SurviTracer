@@ -54,7 +54,7 @@ client.once('ready', async () => {
 
     setTimeout(() => {
       void doWork();
-    }, ms('1min'));
+    }, ms('30min'));
   };
 
   void doWork();
